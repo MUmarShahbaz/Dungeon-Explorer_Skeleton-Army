@@ -7,7 +7,7 @@ var target: CharacterBody2D
 var target_offset: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-	zoom = Vector2.ONE * 3.5
+	zoom = Vector2.ONE * 2.5
 	limit_bottom = 250
 	limit_smoothed = true
 	position_smoothing_enabled = true
