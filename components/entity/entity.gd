@@ -6,11 +6,11 @@ class_name Entity
 @export var HP_Regeneration_Rate : float = 1
 
 @export_group("Stamina", "SP")
-@export var SP_Stamina_Point : float = 100
+@export var SP_Stamina_Points : float = 100
 @export var SP_Regeneration_Rate : float = 1
 
 @export_group("Movement", "MV")
-@export var MV_Speed : float = 200
+@export var MV_Speed : float = 100
 @export var MV_Run_Speed : float = 300
 @export var MV_Jump : float = -300
 
