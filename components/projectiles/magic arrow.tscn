@@ -184,7 +184,6 @@ states/spawn/position = Vector2(369.333, 99.3333)
 transitions = ["Start", "spawn", SubResource("AnimationNodeStateMachineTransition_l83hx"), "spawn", "default", SubResource("AnimationNodeStateMachineTransition_tk33d")]
 
 [node name="Magic Arrow" type="RigidBody2D" node_paths=PackedStringArray("sprite", "collider")]
-contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_j8600")
 sprite = NodePath("sprite")

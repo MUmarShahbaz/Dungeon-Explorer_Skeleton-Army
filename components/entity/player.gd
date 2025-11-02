@@ -3,14 +3,6 @@ class_name Player
 
 signal cam(direction : Vector2)
 
-@export_group("Sound Effects", "SFX")
-@export var SFX_Walk : AudioStreamPlayer2D
-@export var SFX_Run : AudioStreamPlayer2D
-@export var SFX_Jump : AudioStreamPlayer2D
-@export var SFX_Hurt : AudioStreamPlayer2D
-@export var SFX_Die : AudioStreamPlayer2D
-@export var SFX_Heal : AudioStreamPlayer2D
-
 @export_group("Items", "ITM")
 @export var ITM_Healing_Potions : int = 3
 @export var ITM_Booster_Potions : int = 5
@@ -19,6 +11,7 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(int(name))
 
 func _ready() -> void:
+	add_to_group("players")
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(2, true)
 	if is_multiplayer_authority():

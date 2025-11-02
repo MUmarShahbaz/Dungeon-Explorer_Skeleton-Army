@@ -16,4 +16,4 @@ func prepare(position: Vector2, dirction : int):
 	get_tree().get_current_scene().add_child(current_projectile)
 
 func launch():
-	current_projectile.launch(force)
+	if current_projectile: current_projectile.launch(force)

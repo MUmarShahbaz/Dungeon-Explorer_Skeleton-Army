@@ -1055,7 +1055,7 @@ ANM_Animation_Tree = NodePath("anim_tree")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8lcca")
 autoplay = "default"
-offset = Vector2(3, -32)
+offset = Vector2(0, -32)
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_f1v5o")

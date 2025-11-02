@@ -15,6 +15,7 @@ func _ready() -> void:
 	gravity_scale = 0
 	lock_rotation = true
 	contact_monitor = true
+	max_contacts_reported = 1
 	if direction == -1 : flip()
 
 func flip():
@@ -26,6 +27,7 @@ func _physics_process(_delta: float) -> void:
 	if bodies.size() > 0:
 		if bodies[0] is Entity:
 			(bodies[0] as Entity).take_damage(damage)
+			(bodies[0] as Entity).velocity.x += 10*direction
 		queue_free()
 
 func launch(force : int) -> void:
