@@ -42,15 +42,23 @@ func _physics_process(delta: float) -> void:
 
 func control(delta : float):
 	camera()
-	movement(delta)
 	attack()
 	special()
+	movement(delta)
 
 func camera():
 	var cam_dir = Input.get_vector("cam_left", "cam_right", "cam_up", "cam_down").normalized()
 	emit_signal("cam", cam_dir)
 
+var force_pause : bool = false
+var pause_on_anims : Array[String] = ["attack_1", "attack_2", "attack_3", "protect", "secondary"]
+func pause_movement():
+	if force_pause : return true
+	for anim in pause_on_anims:
+		if check_anim(anim) : return true
+	return false
 func movement(delta : float):
+	if pause_movement(): return
 	var x_dir : float = Input.get_axis("left", "right")
 	if x_dir != 0:
 		if Input.is_action_pressed("sprint"):
@@ -80,7 +88,7 @@ func special():
 		ITM_Booster_Potions -= 1
 		SP_Stamina_Points += SP_Regeneration_Rate * 60
 
-# Functions to be rewritten in Last Child
+# Functions to be rewritten in Lowest Child
 func flip():
 	direction *= -1
 	ANM_Animated_Sprite.flip_h = !ANM_Animated_Sprite.flip_h
@@ -88,3 +96,9 @@ func primary():
 	pass
 func secondary():
 	pass
+
+# Misc
+func check_anim(animation : String):
+	return ANM_Animated_Sprite.animation == animation
+func check_frame(animation : String, frame : int):
+	return ANM_Animated_Sprite.animation == animation and ANM_Animated_Sprite.frame == frame
