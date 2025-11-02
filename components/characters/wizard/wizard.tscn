@@ -1073,14 +1073,14 @@ anim_player = NodePath("../anim_player")
 script = ExtResource("10_tmpb7")
 projectile_scene = ExtResource("11_tpcqg")
 offset = Vector2(7, -8)
-force = 600.0
+force = 600
 metadata/_custom_type_script = "uid://cjyum5jemod6g"
 
 [node name="Magic_Bomb" type="Node" parent="."]
 script = ExtResource("10_tmpb7")
 projectile_scene = ExtResource("12_cpdw5")
 offset = Vector2(7, -8)
-force = 600.0
+force = 300
 metadata/_custom_type_script = "uid://cjyum5jemod6g"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

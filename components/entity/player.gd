@@ -3,11 +3,6 @@ class_name Player
 
 signal cam(direction : Vector2)
 
-@export_group("Animation", "ANM")
-@export var ANM_Animated_Sprite : AnimatedSprite2D
-@export var ANM_Animation_Player : AnimationPlayer
-@export var ANM_Animation_Tree : AnimationTree
-
 @export_group("Sound Effects", "SFX")
 @export var SFX_Walk : AudioStreamPlayer2D
 @export var SFX_Run : AudioStreamPlayer2D
@@ -40,38 +35,15 @@ func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority(): control(delta)
 	move_and_slide()
 
-func control(delta : float):
+func control(_delta : float):
 	camera()
 	attack()
 	special()
-	movement(delta)
+	movement()
 
 func camera():
 	var cam_dir = Input.get_vector("cam_left", "cam_right", "cam_up", "cam_down").normalized()
 	emit_signal("cam", cam_dir)
-
-var force_pause : bool = false
-var pause_on_anims : Array[String] = ["attack_1", "attack_2", "attack_3", "protect", "secondary"]
-func pause_movement():
-	if force_pause : return true
-	for anim in pause_on_anims:
-		if check_anim(anim) : return true
-	return false
-func movement(delta : float):
-	if pause_movement(): return
-	var x_dir : float = Input.get_axis("left", "right")
-	if x_dir != 0:
-		if Input.is_action_pressed("sprint"):
-			velocity.x = x_dir * MV_Run_Speed
-			if is_on_floor(): ANM_Animation_Tree.get("parameters/playback").travel("run")
-		else:
-			velocity.x = x_dir * MV_Speed
-			if is_on_floor(): ANM_Animation_Tree.get("parameters/playback").travel("walk")
-	else: velocity.x = 0
-	if x_dir * facing < 0 : flip()
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y += MV_Jump
-		ANM_Animation_Tree.get("parameters/playback").travel("jump")
 
 func attack():
 	if Input.is_action_just_pressed("primary"):
@@ -88,21 +60,33 @@ func special():
 		ITM_Booster_Potions -= 1
 		SP_Stamina_Points += SP_Regeneration_Rate * 60
 
+var force_pause : bool = false
+var pause_on_anims : Array[String] = ["attack_1", "attack_2", "attack_3", "protect", "secondary"]
+
+func pause_movement():
+	if force_pause : return true
+	for anim in pause_on_anims:
+		if check_anim(anim) : return true
+	return false
+
+func movement():
+	if pause_movement(): return
+	var x_dir : float = Input.get_axis("left", "right")
+	if x_dir != 0:
+		if Input.is_action_pressed("sprint"):
+			velocity.x = x_dir * MV_Run_Speed
+			if is_on_floor(): ANM_Animation_Tree.get("parameters/playback").travel("run")
+		else:
+			velocity.x = x_dir * MV_Speed
+			if is_on_floor(): ANM_Animation_Tree.get("parameters/playback").travel("walk")
+	else: velocity.x = 0
+	if x_dir * facing < 0 : flip()
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y += MV_Jump
+		ANM_Animation_Tree.get("parameters/playback").travel("jump")
+
 # Functions to be rewritten in Lowest Child
-func flip():
-	facing *= -1
-	ANM_Animated_Sprite.flip_h = !ANM_Animated_Sprite.flip_h
 func primary():
 	pass
 func secondary():
 	pass
-
-# Misc
-func check_anim(animation : String):
-	return ANM_Animated_Sprite.animation == animation
-func check_frame(animation : String, frame : int):
-	return ANM_Animated_Sprite.animation == animation and ANM_Animated_Sprite.frame == frame
-func await_frame(animation: String, frame : int):
-	while !check_frame(animation, frame):
-		await get_tree().physics_frame
-	return true

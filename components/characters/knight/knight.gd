@@ -4,7 +4,7 @@ class_name Knight
 @export var Primary_Move_Buffer : Buffer
 var protect : bool = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	ANM_Animation_Tree.set("parameters/conditions/attack", Primary_Move_Buffer.buffer)
 	ANM_Animation_Tree.set("parameters/conditions/protect", protect)
 	ANM_Animation_Tree.set("parameters/conditions/not_protect", !protect)

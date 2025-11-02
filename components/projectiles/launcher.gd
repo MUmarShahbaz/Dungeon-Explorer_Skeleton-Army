@@ -3,7 +3,7 @@ class_name ProjectileLauncher
 
 @export var projectile_scene : PackedScene
 @export var offset : Vector2
-@export var force : float
+@export var force : int
 
 @onready var launched_by = get_parent()
 var current_projectile : Projectile

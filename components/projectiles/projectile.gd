@@ -21,7 +21,7 @@ func flip():
 	sprite.flip_h = !sprite.flip_h
 	collider.position.x *= -1
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var bodies = get_colliding_bodies()
 	if bodies.size() > 0:
 		if bodies[0] is Entity:
