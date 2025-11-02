@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://dy7gi0gjpojrs"]
+[gd_scene load_steps=117 format=3 uid="uid://dy7gi0gjpojrs"]
 
 [ext_resource type="Script" uid="uid://clwn5i2n7xvi7" path="res://components/characters/wizard/wizard.gd" id="1_0xpa7"]
 [ext_resource type="Texture2D" uid="uid://45p3i200ixtb" path="res://assets/sprites/players/wizard/Magic_arrow.png" id="2_tmpb7"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://d323wtm6txni3" path="res://assets/sprites/players/wizard/Run.png" id="7_veg6e"]
 [ext_resource type="Texture2D" uid="uid://drtcsm1sqe21t" path="res://assets/sprites/players/wizard/Magic_sphere.png" id="8_5hg0q"]
 [ext_resource type="Texture2D" uid="uid://2pfagbdhxwlu" path="res://assets/sprites/players/wizard/Walk.png" id="9_p1c7k"]
+[ext_resource type="Script" uid="uid://cjyum5jemod6g" path="res://components/projectiles/launcher.gd" id="10_tmpb7"]
+[ext_resource type="PackedScene" uid="uid://41857mtigfwr" path="res://components/projectiles/magic arrow.tscn" id="11_tpcqg"]
+[ext_resource type="PackedScene" uid="uid://cvth31vukk7kj" path="res://components/projectiles/magic bomb.tscn" id="12_cpdw5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0r2dl"]
 atlas = ExtResource("2_tmpb7")
@@ -1041,8 +1044,10 @@ properties/3/path = NodePath("sprite:flip_h")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="wizard" type="CharacterBody2D" node_paths=PackedStringArray("ANM_Animated_Sprite", "ANM_Animation_Player", "ANM_Animation_Tree")]
+[node name="wizard" type="CharacterBody2D" node_paths=PackedStringArray("primary_launcher", "secondary_launcher", "ANM_Animated_Sprite", "ANM_Animation_Player", "ANM_Animation_Tree")]
 script = ExtResource("1_0xpa7")
+primary_launcher = NodePath("Magic_Arrow")
+secondary_launcher = NodePath("Magic_Bomb")
 ANM_Animated_Sprite = NodePath("sprite")
 ANM_Animation_Player = NodePath("anim_player")
 ANM_Animation_Tree = NodePath("anim_tree")
@@ -1063,6 +1068,20 @@ libraries = {
 [node name="anim_tree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_wfufo")
 anim_player = NodePath("../anim_player")
+
+[node name="Magic_Arrow" type="Node" parent="."]
+script = ExtResource("10_tmpb7")
+projectile_scene = ExtResource("11_tpcqg")
+offset = Vector2(7, -8)
+force = 600.0
+metadata/_custom_type_script = "uid://cjyum5jemod6g"
+
+[node name="Magic_Bomb" type="Node" parent="."]
+script = ExtResource("10_tmpb7")
+projectile_scene = ExtResource("12_cpdw5")
+offset = Vector2(7, -8)
+force = 600.0
+metadata/_custom_type_script = "uid://cjyum5jemod6g"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_0ekmf")

@@ -20,12 +20,12 @@ signal cam(direction : Vector2)
 @export var ITM_Healing_Potions : int = 3
 @export var ITM_Booster_Potions : int = 5
 
-var direction : int = 1
-
 func _enter_tree() -> void:
 	set_multiplayer_authority(int(name))
 
 func _ready() -> void:
+	set_collision_layer_value(1, false)
+	set_collision_layer_value(2, true)
 	if is_multiplayer_authority():
 		var myCAM = CAM.new()
 		myCAM.target = self
@@ -68,7 +68,7 @@ func movement(delta : float):
 			velocity.x = x_dir * MV_Speed
 			if is_on_floor(): ANM_Animation_Tree.get("parameters/playback").travel("walk")
 	else: velocity.x = 0
-	if x_dir * direction < 0 : flip()
+	if x_dir * facing < 0 : flip()
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y += MV_Jump
 		ANM_Animation_Tree.get("parameters/playback").travel("jump")
@@ -90,7 +90,7 @@ func special():
 
 # Functions to be rewritten in Lowest Child
 func flip():
-	direction *= -1
+	facing *= -1
 	ANM_Animated_Sprite.flip_h = !ANM_Animated_Sprite.flip_h
 func primary():
 	pass
@@ -102,3 +102,7 @@ func check_anim(animation : String):
 	return ANM_Animated_Sprite.animation == animation
 func check_frame(animation : String, frame : int):
 	return ANM_Animated_Sprite.animation == animation and ANM_Animated_Sprite.frame == frame
+func await_frame(animation: String, frame : int):
+	while !check_frame(animation, frame):
+		await get_tree().physics_frame
+	return true

@@ -1,0 +1,182 @@
+[gd_scene load_steps=19 format=3 uid="uid://cvth31vukk7kj"]
+
+[ext_resource type="Script" uid="uid://c0irv2blollmd" path="res://components/projectiles/projectile.gd" id="1_d4iy4"]
+[ext_resource type="Texture2D" uid="uid://bw7y0p58gtatw" path="res://assets/sprites/players/wizard/Charge_1.png" id="2_rd8li"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5t12"]
+atlas = ExtResource("2_rd8li")
+region = Rect2(128, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udx4i"]
+atlas = ExtResource("2_rd8li")
+region = Rect2(192, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilr1u"]
+atlas = ExtResource("2_rd8li")
+region = Rect2(256, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0eot"]
+atlas = ExtResource("2_rd8li")
+region = Rect2(0, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1e33"]
+atlas = ExtResource("2_rd8li")
+region = Rect2(64, 0, 64, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d4iy4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y5t12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udx4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilr1u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0eot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1e33")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rd8li"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_rd8li"]
+resource_name = "spawn"
+length = 0.20001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"spawn"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_y5t12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_udx4i"]
+resource_name = "default"
+length = 0.30001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y5t12"]
+_data = {
+&"RESET": SubResource("Animation_y5t12"),
+&"default": SubResource("Animation_udx4i"),
+&"spawn": SubResource("Animation_rd8li")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rd8li"]
+animation = &"default"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y5t12"]
+animation = &"spawn"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_udx4i"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ilr1u"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rd8li"]
+states/default/node = SubResource("AnimationNodeAnimation_rd8li")
+states/default/position = Vector2(490.667, 99.3333)
+states/spawn/node = SubResource("AnimationNodeAnimation_y5t12")
+states/spawn/position = Vector2(349.333, 99.3333)
+transitions = ["Start", "spawn", SubResource("AnimationNodeStateMachineTransition_udx4i"), "spawn", "default", SubResource("AnimationNodeStateMachineTransition_ilr1u")]
+
+[node name="Magic Bomb" type="RigidBody2D" node_paths=PackedStringArray("sprite", "collider")]
+script = ExtResource("1_d4iy4")
+sprite = NodePath("sprite")
+collider = NodePath("collider")
+damage = 100
+metadata/_custom_type_script = "uid://c0irv2blollmd"
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d4iy4")
+autoplay = "spawn"
+frame = 1
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(16, 0)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_rd8li")
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_y5t12")
+}
+
+[node name="anim_tree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_rd8li")
+anim_player = NodePath("../anim_player")
