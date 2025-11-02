@@ -2,7 +2,7 @@ extends Node
 class_name Buffer
 
 var buffer : bool = false
-var duration : float = 0.25
+var duration : float = 0.5
 var timer : float = 0
 
 func _process(delta: float) -> void:
