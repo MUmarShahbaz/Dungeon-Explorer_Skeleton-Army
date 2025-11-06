@@ -17,6 +17,9 @@ func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 1
 	if direction == -1 : flip()
+	while true:
+		await get_tree().create_timer(5).timeout
+		if abs(linear_velocity.x) < 2: queue_free()
 
 func flip():
 	sprite.flip_h = !sprite.flip_h

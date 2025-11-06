@@ -5,5 +5,6 @@ extends Enemy
 func _process(delta: float) -> void:
 	ANM_Animation_Tree.set("parameters/conditions/attack", attack_buffer.buffer)
 
-func attack():
-	pass
+func pounce(player):
+	super.pounce(player)
+	attack_buffer.start()

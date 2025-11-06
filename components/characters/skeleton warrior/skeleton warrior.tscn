@@ -386,6 +386,35 @@ tracks/1/keys = {
 "values": [&"default"]
 }
 
+[sub_resource type="Animation" id="Animation_pma8q"]
+resource_name = "attack_1"
+length = 0.50001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_1"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
 [sub_resource type="Animation" id="Animation_y1brm"]
 resource_name = "attack_2"
 length = 0.60001
@@ -430,6 +459,35 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"attack_3"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ffo2t"]
+resource_name = "die"
+length = 0.40001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"die"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -563,64 +621,6 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_pma8q"]
-resource_name = "attack_1"
-length = 0.50001
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"attack_1"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-
-[sub_resource type="Animation" id="Animation_ffo2t"]
-resource_name = "die"
-length = 0.40001
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"die"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xvblh"]
 _data = {
 &"RESET": SubResource("Animation_xvblh"),
@@ -733,7 +733,7 @@ graph_offset = Vector2(0, -142.202)
 
 [node name="Skeleton Warrior" type="CharacterBody2D" node_paths=PackedStringArray("attack_buffer", "VIS_Ray", "ANM_Animated_Sprite", "ANM_Animation_Player", "ANM_Animation_Tree")]
 script = ExtResource("1_cgs5t")
-attack_buffer = NodePath("attack_buffer")
+attack_buffer = NodePath("Attack Buffer")
 VIS_Ray = NodePath("RayCast2D")
 VIS_Range = 100.0
 VIS_Attack_Range = 50.0
@@ -741,6 +741,7 @@ HP_Health_Points = 10.0
 HP_Regeneration_Rate = 0.0
 SP_Stamina_Points = 0.0
 SP_Regeneration_Rate = 0.0
+MV_Run_Speed = 280.0
 ATK_Damage = 5.0
 ANM_Animated_Sprite = NodePath("sprite")
 ANM_Animation_Player = NodePath("anim_player")
@@ -748,7 +749,6 @@ ANM_Animation_Tree = NodePath("anim_tree")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kbpb8")
-frame = 1
 offset = Vector2(0, -34)
 
 [node name="collider" type="CollisionShape2D" parent="."]
@@ -764,9 +764,10 @@ tree_root = SubResource("AnimationNodeStateMachine_kbpb8")
 anim_player = NodePath("../anim_player")
 parameters/conditions/attack = 0.70001
 
-[node name="attack_buffer" type="Node" parent="."]
-script = ExtResource("10_xvblh")
-metadata/_custom_type_script = "uid://n2liqouspgxa"
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collision_mask = 2
+
+[node name="Attack Buffer" type="Node" parent="."]
+script = ExtResource("10_xvblh")
+duration = 0.1
+metadata/_custom_type_script = "uid://n2liqouspgxa"

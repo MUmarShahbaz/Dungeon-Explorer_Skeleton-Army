@@ -15,8 +15,6 @@ func _physics_process(delta: float) -> void:
 @export var VIS_Ray : RayCast2D
 @export var VIS_Range : float
 @export var VIS_Attack_Range : float
-@export_group("Other")
-@export var spread : float = 60
 # Mob Brain
 enum  state {patrol, pursue, pounce}
 var current_state : state = state.patrol
@@ -47,25 +45,29 @@ func mob_brain(delta):
 			pounce(player)
 
 # Behaviour
-@onready var home = global_position
-var distance_from_home = 50
+@onready var home = global_position.x
+var max_dist: int = 100
+var next_dist: int = 0
+var pause: bool = false
+
 func patrol(delta):
-	if !check_anim("idle") and !check_anim("walk"): home = global_position
-	print(!check_anim("idle") and !check_anim("walk"))
-	if to_local(home).x < distance_from_home and velocity.x == 0:
-		if randi_range(0, 1) == 1: flip()
-		ANM_Animation_Tree.get("parameters/playback").travel("walk")
-		velocity.x = facing * MV_Speed
-	if to_local(home).x >= distance_from_home:
-		ANM_Animation_Tree.get("parameters/playback").travel("idle")
+	if pause: return
+	if next_dist * facing < 0 : flip()
+	ANM_Animation_Tree.get("parameters/playback").travel("walk")
+	velocity.x = MV_Speed * (-1 if next_dist < 0 else 1)
+	if home + abs(next_dist) < global_position.x or home - abs(next_dist) > global_position.x:
 		velocity.x = 0
-		await get_tree().create_timer(randf_range(0.5, 1)).timeout
+		pause = true
+		home = global_position.x
+		next_dist = randi_range(50 , max_dist) if randi_range(0, 100) > 50 else randf_range(-max_dist, -50)
+		await get_tree().create_timer(randf_range(3, 5)).timeout
+		pause = false
 
 func pursue(player : Player, delta: float):
 	ANM_Animation_Tree.get("parameters/playback").travel("run")
 	face_player(player)
 	var dir : Vector2 = to_local(player.global_position).normalized()
-	velocity.x = dir.x * delta * 100 * MV_Run_Speed
+	velocity.x = dir.x * MV_Run_Speed
 
 # Rewrite in lowest child
 func pounce(player):
