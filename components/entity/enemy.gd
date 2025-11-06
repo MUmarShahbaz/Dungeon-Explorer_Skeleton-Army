@@ -81,10 +81,8 @@ func find_closest_player():
 	for player : Player in get_tree().get_nodes_in_group("players"):
 		var to_player : Vector2 = to_local(player.global_position)
 		if to_player.x * facing < 0 and to_player.length() > VIS_Attack_Range: continue
-		var ray_target : Vector2 = to_player
-		if to_player.length() > VIS_Range:
-			ray_target = ray_target.normalized() * VIS_Range
-		VIS_Ray.target_position = ray_target
+		if to_player.length() > VIS_Range: continue
+		VIS_Ray.target_position = to_player
 		VIS_Ray.force_raycast_update()
 		if VIS_Ray.is_colliding():
 			var collider = VIS_Ray.get_collider()
