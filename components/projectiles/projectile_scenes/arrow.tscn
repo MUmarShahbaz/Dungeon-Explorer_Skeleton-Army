@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://da1rk8kecexds"]
+
+[ext_resource type="Script" uid="uid://c0irv2blollmd" path="res://components/projectiles/projectile.gd" id="1_mgwxw"]
+[ext_resource type="Texture2D" uid="uid://bpg2vde74syp2" path="res://assets/sprites/mobs/skeleton archer/Arrow.png" id="2_mgwxw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2fh0"]
+atlas = ExtResource("2_mgwxw")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ahq02"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2fh0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j8600"]
+radius = 4.12311
+
+[node name="Arrow" type="RigidBody2D" node_paths=PackedStringArray("sprite", "collider")]
+max_contacts_reported = 1
+script = ExtResource("1_mgwxw")
+sprite = NodePath("sprite")
+collider = NodePath("collider")
+damage = 1
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ahq02")
+offset = Vector2(0, 0.5)
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(21, 1)
+shape = SubResource("CircleShape2D_j8600")

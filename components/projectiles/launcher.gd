@@ -1,19 +1,22 @@
 extends Node
 class_name ProjectileLauncher
 
-@export var projectile_scene : PackedScene
-@export var offset : Vector2
-@export var force : int
+@onready var parent : Entity = get_parent()
+@export var move_list : Array[ProjectileAttack]
+var attacking = null
 
-@onready var launched_by = get_parent()
-var current_projectile : Projectile
-
-func prepare(position: Vector2, dirction : int):
-	current_projectile = projectile_scene.instantiate()
-	current_projectile.global_position = position + Vector2(offset.x * dirction, offset.y)
-	current_projectile.direction = dirction
-	current_projectile.launched_by = launched_by
-	get_tree().get_current_scene().add_child(current_projectile)
-
-func launch():
-	if current_projectile: current_projectile.launch(force)
+func _process(delta: float) -> void:
+	if attacking:
+		if parent.check_anim(attacking) == false:
+			attacking = null
+	else:
+		for projectile_attack : ProjectileAttack in move_list:
+			if parent.check_frame(projectile_attack.Animation_Name, projectile_attack.Load_Animation_Frame):
+				attacking = projectile_attack.Animation_Name
+				var new_projectile : Projectile = projectile_attack.Projectile_Scene.instantiate()
+				new_projectile.global_position = parent.global_position + Vector2(projectile_attack.Spawn_Offset.x * parent.facing, projectile_attack.Spawn_Offset.y)
+				new_projectile.direction = parent.facing
+				new_projectile.launched_by = parent
+				get_tree().get_current_scene().add_child(new_projectile)
+				await parent.await_frame(projectile_attack.Animation_Name, projectile_attack.Launch_Animation_Frame)
+				if new_projectile: new_projectile.launch(projectile_attack.Force)

@@ -7,6 +7,7 @@ func _ready() -> void:
 	set_collision_layer_value(3, true)
 
 func _physics_process(delta: float) -> void:
+	if HP_Health_Points <= 0: return
 	super._physics_process(delta)
 	mob_brain(delta)
 	move_and_slide()
@@ -65,6 +66,7 @@ func patrol(delta):
 
 func pursue(player : Player, delta: float):
 	ANM_Animation_Tree.get("parameters/playback").travel("run")
+	ANM_Animation_Tree.advance(0)
 	face_player(player)
 	var dir : Vector2 = to_local(player.global_position).normalized()
 	velocity.x = dir.x * MV_Run_Speed

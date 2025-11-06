@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://dy7gi0gjpojrs"]
+[gd_scene load_steps=120 format=3 uid="uid://dy7gi0gjpojrs"]
 
 [ext_resource type="Script" uid="uid://clwn5i2n7xvi7" path="res://components/characters/wizard/wizard.gd" id="1_0xpa7"]
 [ext_resource type="Texture2D" uid="uid://45p3i200ixtb" path="res://assets/sprites/players/wizard/Magic_arrow.png" id="2_tmpb7"]
@@ -10,8 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://drtcsm1sqe21t" path="res://assets/sprites/players/wizard/Magic_sphere.png" id="8_5hg0q"]
 [ext_resource type="Texture2D" uid="uid://2pfagbdhxwlu" path="res://assets/sprites/players/wizard/Walk.png" id="9_p1c7k"]
 [ext_resource type="Script" uid="uid://cjyum5jemod6g" path="res://components/projectiles/launcher.gd" id="10_tmpb7"]
-[ext_resource type="PackedScene" uid="uid://41857mtigfwr" path="res://components/projectiles/magic arrow.tscn" id="11_tpcqg"]
-[ext_resource type="PackedScene" uid="uid://cvth31vukk7kj" path="res://components/projectiles/magic bomb.tscn" id="12_cpdw5"]
+[ext_resource type="Script" uid="uid://o4kw3676x0i5" path="res://components/projectiles/attack.gd" id="11_s5sl6"]
+[ext_resource type="PackedScene" uid="uid://41857mtigfwr" path="res://components/projectiles/projectile_scenes/magic arrow.tscn" id="11_tpcqg"]
+[ext_resource type="PackedScene" uid="uid://cvth31vukk7kj" path="res://components/projectiles/projectile_scenes/magic bomb.tscn" id="12_cpdw5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0r2dl"]
 atlas = ExtResource("2_tmpb7")
@@ -1030,6 +1031,26 @@ states/walk/position = Vector2(542.258, 25.38)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_iqwwa"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_gu12u"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_ku7g3"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_jpmv8"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_868je"), "idle", "attack_1", SubResource("AnimationNodeStateMachineTransition_ox6at"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_p6e26"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_wfufo"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_xjcqi"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ov28q"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_xs2k8"), "run", "fall", SubResource("AnimationNodeStateMachineTransition_1fk6n"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_335tu"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_slg3v"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_4380a"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_y1nkr"), "attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_0ekmf"), "idle", "secondary", SubResource("AnimationNodeStateMachineTransition_tmpb7"), "secondary", "idle", SubResource("AnimationNodeStateMachineTransition_tpcqg")]
 graph_offset = Vector2(0, -26.5552)
 
+[sub_resource type="Resource" id="Resource_6eu3c"]
+script = ExtResource("11_s5sl6")
+Animation_Name = "attack_1"
+Load_Animation_Frame = 0
+Launch_Animation_Frame = 5
+Projectile_Scene = ExtResource("11_tpcqg")
+Spawn_Offset = Vector2(7, -8)
+Force = 600
+metadata/_custom_type_script = "uid://o4kw3676x0i5"
+
+[sub_resource type="Resource" id="Resource_veg6e"]
+script = ExtResource("11_s5sl6")
+Animation_Name = "secondary"
+Load_Animation_Frame = 9
+Launch_Animation_Frame = 12
+Projectile_Scene = ExtResource("12_cpdw5")
+Spawn_Offset = Vector2(15, -8)
+Force = 300
+metadata/_custom_type_script = "uid://o4kw3676x0i5"
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0ekmf"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -1044,10 +1065,8 @@ properties/3/path = NodePath("sprite:flip_h")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="wizard" type="CharacterBody2D" node_paths=PackedStringArray("primary_launcher", "secondary_launcher", "ANM_Animated_Sprite", "ANM_Animation_Player", "ANM_Animation_Tree")]
+[node name="wizard" type="CharacterBody2D" node_paths=PackedStringArray("ANM_Animated_Sprite", "ANM_Animation_Player", "ANM_Animation_Tree")]
 script = ExtResource("1_0xpa7")
-primary_launcher = NodePath("Magic_Arrow")
-secondary_launcher = NodePath("Magic_Bomb")
 ANM_Animated_Sprite = NodePath("sprite")
 ANM_Animation_Player = NodePath("anim_player")
 ANM_Animation_Tree = NodePath("anim_tree")
@@ -1069,18 +1088,9 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_wfufo")
 anim_player = NodePath("../anim_player")
 
-[node name="Magic_Arrow" type="Node" parent="."]
+[node name="Projectile Launcher" type="Node" parent="."]
 script = ExtResource("10_tmpb7")
-projectile_scene = ExtResource("11_tpcqg")
-offset = Vector2(7, -8)
-force = 600
-metadata/_custom_type_script = "uid://cjyum5jemod6g"
-
-[node name="Magic_Bomb" type="Node" parent="."]
-script = ExtResource("10_tmpb7")
-projectile_scene = ExtResource("12_cpdw5")
-offset = Vector2(7, -8)
-force = 300
+move_list = Array[ExtResource("11_s5sl6")]([SubResource("Resource_6eu3c"), SubResource("Resource_veg6e")])
 metadata/_custom_type_script = "uid://cjyum5jemod6g"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
