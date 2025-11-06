@@ -24,6 +24,7 @@ func _ready() -> void:
 		myEars.make_current()
 
 func _physics_process(delta: float) -> void:
+	if HP_Health_Points <= 0: return
 	super._physics_process(delta)
 	if is_multiplayer_authority(): control(delta)
 	move_and_slide()
@@ -54,7 +55,7 @@ func special():
 		SP_Stamina_Points += SP_Regeneration_Rate * 60
 
 var force_pause : bool = false
-var pause_on_anims : Array[String] = ["attack_1", "attack_2", "attack_3", "protect", "secondary"]
+var pause_on_anims : Array[String] = ["attack_1", "attack_2", "attack_3", "protect", "secondary", "die"]
 
 func pause_movement():
 	if force_pause : return true

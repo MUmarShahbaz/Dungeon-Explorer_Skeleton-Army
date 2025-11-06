@@ -36,11 +36,6 @@ var facing : int = 1
 @onready var max_sp = SP_Stamina_Points
 
 func _physics_process(delta: float) -> void:
-	if HP_Health_Points <= 0:
-		velocity = Vector2.ZERO
-		ANM_Animation_Tree.get("parameters/playback").travel("die")
-		await  get_tree().create_timer(ANM_Animation_Player.get_animation("die").length).timeout
-		queue_free()
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	if HP_Health_Points < max_hp : HP_Health_Points += HP_Regeneration_Rate * delta
@@ -55,6 +50,17 @@ func flip():
 
 func take_damage(amount):
 	HP_Health_Points -= amount
+	if HP_Health_Points <= 0:
+		velocity = Vector2.ZERO
+		ANM_Animation_Tree.get("parameters/playback").travel("die")
+		ANM_Animation_Tree.advance(0)
+		await await_frame("die", ANM_Animated_Sprite.sprite_frames.get_frame_count("die") - 1)
+		queue_free()
+		return
+	else:
+		velocity.x = 0
+		ANM_Animation_Tree.get("parameters/playback").travel("hurt")
+		ANM_Animation_Tree.advance(0)
 
 func check_anim(animation : String):
 	return ANM_Animated_Sprite.animation == animation
