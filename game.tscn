@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2n600jkhl1ti"]
+
+[ext_resource type="PackedScene" uid="uid://dy7gi0gjpojrs" path="res://components/characters/wizard/wizard.tscn" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://bels7wc0jjdav" path="res://components/characters/skeleton warrior/skeleton warrior.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://bgt00d8spir50" path="res://components/characters/skeleton spearman/skeleton spearman.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://54ny3m7kmgsf" path="res://components/characters/skeleton archer/skeleton archer.tscn" id="4_fc0e3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e2o6t"]
+
+[node name="game" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 40)
+shape = SubResource("WorldBoundaryShape2D_e2o6t")
+
+[node name="1" parent="." instance=ExtResource("1_80nbo")]
+
+[node name="Archers" type="Node2D" parent="."]
+
+[node name="Skeleton Archer" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer2" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer3" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer4" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer5" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer6" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer7" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer8" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer9" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer10" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer11" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer12" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-682, -28)
+
+[node name="Skeleton Archer13" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-729, -23)
+
+[node name="Skeleton Archer14" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-855, -21)
+
+[node name="Skeleton Archer15" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-798, -17)
+
+[node name="Skeleton Archer16" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-815, -19)
+
+[node name="Skeleton Archer17" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-620, -29)
+
+[node name="Skeleton Archer18" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-592, -28)
+
+[node name="Skeleton Archer19" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-540, -29)
+
+[node name="Skeleton Archer20" parent="Archers" instance=ExtResource("4_fc0e3")]
+position = Vector2(-763, -22)
+
+[node name="Infantry" type="Node2D" parent="."]
+
+[node name="Skeleton Spearman" parent="Infantry" instance=ExtResource("3_feb5d")]
+position = Vector2(774, 9)
+
+[node name="Skeleton Warrior" parent="Infantry" instance=ExtResource("2_e2o6t")]
+position = Vector2(686, 6)
+
+[node name="Skeleton Spearman2" parent="Infantry" instance=ExtResource("3_feb5d")]
+position = Vector2(733, 9)
+
+[node name="Skeleton Warrior2" parent="Infantry" instance=ExtResource("2_e2o6t")]
+position = Vector2(645, 6)
+
+[node name="Skeleton Spearman3" parent="Infantry" instance=ExtResource("3_feb5d")]
+position = Vector2(684, 9)
+
+[node name="Skeleton Warrior3" parent="Infantry" instance=ExtResource("2_e2o6t")]
+position = Vector2(596, 6)
+
+[node name="Skeleton Spearman4" parent="Infantry" instance=ExtResource("3_feb5d")]
+position = Vector2(832, 9)
+
+[node name="Skeleton Warrior4" parent="Infantry" instance=ExtResource("2_e2o6t")]
+position = Vector2(744, 6)
