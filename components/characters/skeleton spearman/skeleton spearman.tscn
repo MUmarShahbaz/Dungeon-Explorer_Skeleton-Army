@@ -653,7 +653,7 @@ script = ExtResource("1_uscrk")
 attack_buffer = NodePath("Attack Buffer")
 melee_controller = NodePath("Melee Controller")
 VIS_Ray = NodePath("RayCast2D")
-VIS_Range = 120.0
+VIS_Range = 200.0
 VIS_Attack_Range = 60.0
 HP_Health_Points = 20.0
 HP_Regeneration_Rate = 0.0
@@ -685,6 +685,7 @@ anim_player = NodePath("../anim_player")
 parameters/conditions/attack = false
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(200, 0)
 collision_mask = 2
 
 [node name="Melee Controller" type="Node" parent="."]
@@ -703,7 +704,7 @@ ray = NodePath("../RayCast2D")
 metadata/_custom_type_script = "uid://cpask11raf8hx"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attack 1"]
-polygon = PackedVector2Array(0, 0, 40, 13, 58, -11, 61, -37, 46, -55)
+polygon = PackedVector2Array(0, 4, 29, 16, 43, 14, 58, 4, 43, -6, 29, -8)
 
 [node name="Attack 2" type="Area2D" parent="." node_paths=PackedStringArray("ray")]
 script = ExtResource("11_ygnye")
@@ -711,4 +712,4 @@ ray = NodePath("../RayCast2D")
 metadata/_custom_type_script = "uid://cpask11raf8hx"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Attack 2"]
-polygon = PackedVector2Array(0, 0, 55, 1, 67, -19, 54, -48, 31, -52, 12, -41)
+polygon = PackedVector2Array(0, -2, 38, 6, 66, -2, 38, -10)

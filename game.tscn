@@ -25,7 +25,7 @@ shape = SubResource("WorldBoundaryShape2D_e2o6t")
 script = ExtResource("2_e2o6t")
 Mob_Scenes = Array[PackedScene]([ExtResource("4_fc0e3")])
 Spawn_Root = NodePath("../../Archers")
-Rate = 0.2
+Rate = 0.0
 metadata/_custom_type_script = "uid://k0njues52nl2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawners/Archer Spawner"]
@@ -40,7 +40,7 @@ shape = SubResource("RectangleShape2D_feb5d")
 script = ExtResource("2_e2o6t")
 Mob_Scenes = Array[PackedScene]([ExtResource("3_7jktm"), ExtResource("3_feb5d")])
 Spawn_Root = NodePath("../../Infantry")
-Rate = 0.2
+Rate = 0.0
 metadata/_custom_type_script = "uid://k0njues52nl2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawners/Infantry Spawner"]

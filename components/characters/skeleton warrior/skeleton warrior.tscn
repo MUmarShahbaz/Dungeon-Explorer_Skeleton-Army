@@ -760,7 +760,7 @@ script = ExtResource("1_t2new")
 attack_buffer = NodePath("Attack Buffer")
 melee_controller = NodePath("Melee Controller")
 VIS_Ray = NodePath("RayCast2D")
-VIS_Range = 100.0
+VIS_Range = 200.0
 VIS_Attack_Range = 50.0
 HP_Health_Points = 10.0
 HP_Regeneration_Rate = 0.0
@@ -791,6 +791,7 @@ anim_player = NodePath("../anim_player")
 parameters/conditions/attack = false
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(200, 0)
 collision_mask = 2
 
 [node name="Melee Controller" type="Node" parent="."]
