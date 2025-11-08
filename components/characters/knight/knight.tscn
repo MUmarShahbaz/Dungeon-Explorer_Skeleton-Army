@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://bbd0aduf4k1tp"]
+[gd_scene load_steps=112 format=3 uid="uid://bbd0aduf4k1tp"]
 
 [ext_resource type="Script" uid="uid://dp314f6uh1020" path="res://components/characters/knight/knight.gd" id="1_drth6"]
 [ext_resource type="Texture2D" uid="uid://dqo3kikac51v" path="res://assets/sprites/players/knight/Idle.png" id="2_6m7q8"]
@@ -1050,20 +1050,6 @@ states/walk/position = Vector2(542.258, 25.38)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_iqwwa"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_gu12u"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_ku7g3"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_jpmv8"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_868je"), "idle", "attack_1", SubResource("AnimationNodeStateMachineTransition_ox6at"), "attack_1", "attack_2", SubResource("AnimationNodeStateMachineTransition_4bvir"), "attack_2", "attack_3", SubResource("AnimationNodeStateMachineTransition_fpawd"), "attack_3", "idle", SubResource("AnimationNodeStateMachineTransition_mh47a"), "idle", "protect", SubResource("AnimationNodeStateMachineTransition_dxeu0"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_p6e26"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_wfufo"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_xjcqi"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ov28q"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_xs2k8"), "run", "fall", SubResource("AnimationNodeStateMachineTransition_1fk6n"), "protect", "idle", SubResource("AnimationNodeStateMachineTransition_jue6h"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_335tu"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_slg3v"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_4380a"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_y1nkr"), "attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_0ekmf"), "attack_2", "idle", SubResource("AnimationNodeStateMachineTransition_7eb7e")]
 graph_offset = Vector2(0, -114.752)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0ekmf"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("sprite:animation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("sprite:frame")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("sprite:flip_h")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-
 [node name="knight" type="CharacterBody2D" node_paths=PackedStringArray("Primary_Move_Buffer", "ANM_Animated_Sprite", "ANM_Animation_Player", "ANM_Animation_Tree")]
 script = ExtResource("1_drth6")
 Primary_Move_Buffer = NodePath("melee_buffer")
@@ -1094,6 +1080,3 @@ parameters/conditions/protect = false
 [node name="melee_buffer" type="Node" parent="."]
 script = ExtResource("12_0ekmf")
 metadata/_custom_type_script = "uid://n2liqouspgxa"
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_0ekmf")

@@ -7,26 +7,22 @@ signal cam(direction : Vector2)
 @export var ITM_Healing_Potions : int = 3
 @export var ITM_Booster_Potions : int = 5
 
-func _enter_tree() -> void:
-	set_multiplayer_authority(int(name))
-
 func _ready() -> void:
 	add_to_group("players")
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(2, true)
-	if is_multiplayer_authority():
-		var myCAM = CAM.new()
-		myCAM.target = self
-		add_child.call_deferred(myCAM)
-		cam.connect(Callable(myCAM, "set_target_offset"))
-		var myEars = AudioListener2D.new()
-		add_child.call_deferred(myEars)
-		myEars.make_current()
+	var myCAM = CAM.new()
+	myCAM.target = self
+	add_child.call_deferred(myCAM)
+	cam.connect(Callable(myCAM, "set_target_offset"))
+	var myEars = AudioListener2D.new()
+	add_child.call_deferred(myEars)
+	myEars.make_current()
 
 func _physics_process(delta: float) -> void:
 	if HP_Health_Points <= 0: return
 	super._physics_process(delta)
-	if is_multiplayer_authority(): control(delta)
+	control(delta)
 	move_and_slide()
 
 func control(_delta : float):

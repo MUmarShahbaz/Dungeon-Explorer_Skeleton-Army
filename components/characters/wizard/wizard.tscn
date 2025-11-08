@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=3 uid="uid://dy7gi0gjpojrs"]
+[gd_scene load_steps=119 format=3 uid="uid://dy7gi0gjpojrs"]
 
 [ext_resource type="Script" uid="uid://clwn5i2n7xvi7" path="res://components/characters/wizard/wizard.gd" id="1_0xpa7"]
 [ext_resource type="Texture2D" uid="uid://45p3i200ixtb" path="res://assets/sprites/players/wizard/Magic_arrow.png" id="2_tmpb7"]
@@ -1051,20 +1051,6 @@ Spawn_Offset = Vector2(15, -8)
 Force = 300
 metadata/_custom_type_script = "uid://o4kw3676x0i5"
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0ekmf"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("sprite:animation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("sprite:frame")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("sprite:flip_h")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-
 [node name="wizard" type="CharacterBody2D" node_paths=PackedStringArray("ANM_Animated_Sprite", "ANM_Animation_Player", "ANM_Animation_Tree")]
 script = ExtResource("1_0xpa7")
 ANM_Animated_Sprite = NodePath("sprite")
@@ -1092,6 +1078,3 @@ anim_player = NodePath("../anim_player")
 script = ExtResource("10_tmpb7")
 move_list = Array[ExtResource("11_s5sl6")]([SubResource("Resource_6eu3c"), SubResource("Resource_veg6e")])
 metadata/_custom_type_script = "uid://cjyum5jemod6g"
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_0ekmf")
