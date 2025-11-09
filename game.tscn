@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2n600jkhl1ti"]
+[gd_scene load_steps=9 format=3 uid="uid://d2n600jkhl1ti"]
 
 [ext_resource type="Script" uid="uid://k0njues52nl2" path="res://components/spawner/spawner.gd" id="2_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://bels7wc0jjdav" path="res://components/characters/skeleton warrior/skeleton warrior.tscn" id="3_7jktm"]
 [ext_resource type="PackedScene" uid="uid://bgt00d8spir50" path="res://components/characters/skeleton spearman/skeleton spearman.tscn" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://54ny3m7kmgsf" path="res://components/characters/skeleton archer/skeleton archer.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://bbd0aduf4k1tp" path="res://components/characters/knight/knight.tscn" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://msfapqekcvg1" path="res://components/hud/hud.tscn" id="6_ryrav"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e2o6t"]
 
@@ -25,8 +26,6 @@ shape = SubResource("WorldBoundaryShape2D_e2o6t")
 script = ExtResource("2_e2o6t")
 Mob_Scenes = Array[PackedScene]([ExtResource("4_fc0e3")])
 Spawn_Root = NodePath("../../Archers")
-Rate = 0.0
-Initial_Spawns = 1
 metadata/_custom_type_script = "uid://k0njues52nl2"
 
 [node name="Region 1" type="CollisionShape2D" parent="Spawners/Archer Spawner"]
@@ -41,7 +40,6 @@ shape = SubResource("RectangleShape2D_feb5d")
 script = ExtResource("2_e2o6t")
 Mob_Scenes = Array[PackedScene]([ExtResource("3_7jktm"), ExtResource("3_feb5d")])
 Spawn_Root = NodePath("../../Infantry")
-Rate = 0.0
 metadata/_custom_type_script = "uid://k0njues52nl2"
 
 [node name="Region 1" type="CollisionShape2D" parent="Spawners/Infantry Spawner"]
@@ -57,3 +55,8 @@ shape = SubResource("RectangleShape2D_feb5d")
 [node name="Infantry" type="Node2D" parent="."]
 
 [node name="knight" parent="." instance=ExtResource("5_7jktm")]
+position = Vector2(0, -150)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("6_ryrav")]

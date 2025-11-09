@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://msfapqekcvg1"]
+
+[ext_resource type="Script" uid="uid://gxvjy3turprp" path="res://components/hud/hud.gd" id="1_kjhcr"]
+[ext_resource type="Texture2D" uid="uid://ge6sjywevhp2" path="res://assets/sprites/flask.png" id="1_p67qi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w10xe"]
+bg_color = Color(0, 0, 0, 0.258824)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjhcr"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kjhcr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 51.0
+
+[node name="HP_Bar" type="ProgressBar" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+theme_override_styles/background = SubResource("StyleBoxFlat_w10xe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kjhcr")
+
+[node name="Flask" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_p67qi")
+
+[node name="Healing Potions" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "3"

@@ -10,7 +10,6 @@ func _process(_delta: float) -> void:
 	ANM_Animation_Tree.set("parameters/conditions/attack", Primary_Move_Buffer.buffer)
 	ANM_Animation_Tree.set("parameters/conditions/protect", protect)
 	ANM_Animation_Tree.set("parameters/conditions/not_protect", !protect)
-	print(HP_Health_Points)
 
 func primary():
 	Primary_Move_Buffer.start()
