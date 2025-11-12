@@ -5,7 +5,7 @@ class_name ProjectileLauncher
 @export var move_list : Array[ProjectileAttack]
 var attacking = null
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if attacking:
 		if parent.check_anim(attacking) == false:
 			attacking = null

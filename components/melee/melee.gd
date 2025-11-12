@@ -5,7 +5,7 @@ class_name MeleeController
 @export var Move_List : Array[MeleeAttack]
 var attacking = null
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if attacking:
 		if parent.check_anim(attacking) == false:
 			attacking = null

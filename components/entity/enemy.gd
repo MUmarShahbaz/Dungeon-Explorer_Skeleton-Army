@@ -9,7 +9,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if HP_Health_Points <= 0: return
 	super._physics_process(delta)
-	mob_brain(delta)
+	mob_brain()
 	move_and_slide()
 
 @export_group("Vision", "VIS")
@@ -20,14 +20,14 @@ func _physics_process(delta: float) -> void:
 enum  state {patrol, pursue, pounce}
 var current_state : state = state.patrol
 
-func mob_brain(delta):
+func mob_brain():
 	var player = find_closest_player()
 	match current_state:
 		state.patrol:
 			if player:
 				current_state = state.pursue
 				return
-			patrol(delta)
+			patrol()
 		state.pursue:
 			if not player:
 				current_state = state.patrol
@@ -35,7 +35,7 @@ func mob_brain(delta):
 			if to_local(player.global_position).length() < VIS_Attack_Range:
 				current_state = state.pounce
 				return
-			pursue(player, delta)
+			pursue(player)
 		state.pounce:
 			if not player:
 				current_state = state.patrol
@@ -48,10 +48,10 @@ func mob_brain(delta):
 # Behaviour
 @onready var home = global_position.x
 var max_dist: int = 100
-var next_dist: int = 0
+var next_dist: float = 0
 var pause: bool = false
 
-func patrol(delta):
+func patrol():
 	if pause: return
 	if next_dist * facing < 0 : flip()
 	ANM_Animation_Tree.get("parameters/playback").travel("walk")
@@ -64,7 +64,7 @@ func patrol(delta):
 		await get_tree().create_timer(randf_range(3, 5)).timeout
 		pause = false
 
-func pursue(player : Player, delta: float):
+func pursue(player : Player):
 	ANM_Animation_Tree.get("parameters/playback").travel("run")
 	ANM_Animation_Tree.advance(0)
 	face_player(player)

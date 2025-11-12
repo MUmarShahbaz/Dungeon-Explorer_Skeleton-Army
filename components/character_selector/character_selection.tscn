@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://bvyqp60mp8g54"]
+
+[ext_resource type="Texture2D" uid="uid://d3mvi5v8yfo00" path="res://assets/sprites/knight.png" id="1_0i02a"]
+[ext_resource type="Script" uid="uid://bwnrmceyd3n1w" path="res://components/character_selector/character_selection.gd" id="1_q58um"]
+[ext_resource type="PackedScene" uid="uid://bbd0aduf4k1tp" path="res://components/characters/knight/knight.tscn" id="2_l0l02"]
+[ext_resource type="Texture2D" uid="uid://bl00y7e5gruek" path="res://assets/sprites/Wizard.png" id="2_q58um"]
+[ext_resource type="PackedScene" uid="uid://dy7gi0gjpojrs" path="res://components/characters/wizard/wizard.tscn" id="3_rwfr3"]
+[ext_resource type="PackedScene" uid="uid://msfapqekcvg1" path="res://components/hud/hud.tscn" id="4_rwfr3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q88bm"]
+bg_color = Color(0, 0, 0, 0.34902)
+
+[node name="Character Selection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q58um")
+knight = ExtResource("2_l0l02")
+wizard = ExtResource("3_rwfr3")
+hud = ExtResource("4_rwfr3")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_q88bm")
+text = "Choose a character to start"
+horizontal_alignment = 1
+
+[node name="Selector" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Knight" type="TextureButton" parent="Selector"]
+texture_filter = 1
+custom_minimum_size = Vector2(280, 320)
+layout_mode = 2
+texture_normal = ExtResource("1_0i02a")
+stretch_mode = 0
+
+[node name="Wizard" type="TextureButton" parent="Selector"]
+texture_filter = 1
+custom_minimum_size = Vector2(280, 320)
+layout_mode = 2
+texture_normal = ExtResource("2_q58um")
+stretch_mode = 0
+
+[connection signal="pressed" from="Selector/Knight" to="." method="_on_knight_pressed"]
+[connection signal="pressed" from="Selector/Wizard" to="." method="_on_wizard_pressed"]

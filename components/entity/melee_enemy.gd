@@ -4,7 +4,7 @@ class_name MeleeEnemy
 @export var attack_buffer : Buffer
 @export var melee_controller : MeleeController
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	ANM_Animation_Tree.set("parameters/conditions/attack", attack_buffer.buffer)
 
 func pounce(player):

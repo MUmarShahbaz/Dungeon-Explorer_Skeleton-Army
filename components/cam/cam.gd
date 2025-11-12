@@ -11,6 +11,7 @@ func _ready() -> void:
 	limit_bottom = 250
 	limit_smoothed = true
 	position_smoothing_enabled = true
+	make_current()
 
 func _process(_delta: float) -> void:
 	var cam_off: Vector2 = Vector2.ZERO
